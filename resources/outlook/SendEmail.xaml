@@ -1,0 +1,111 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="SendEmail" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="isSendSuccessfully" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="mailTo" Type="InArgument(x:String)" />
+    <x:Property Name="mailAttachments" Type="InArgument(scg:List(x:String))" />
+    <x:Property Name="mailSubject" Type="InArgument(x:String)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>880,852.666666666667</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="17">
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Send Email" sap:VirtualizedContainerService.HintSize="476,488.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,396.666666666667" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="isSendMailSuccessful" />
+      </TryCatch.Variables>
+      <TryCatch.Try>
+        <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim application As Microsoft.Office.Interop.Outlook.Application &#xA;Dim ns As Microsoft.Office.Interop.Outlook.NameSpace&#xA;Dim folders As Microsoft.Office.Interop.Outlook.Folders&#xA;Dim sentItemsFolder As Microsoft.Office.Interop.Outlook.MAPIFolder&#xA;Dim mailItem As Microsoft.Office.Interop.Outlook.MailItem&#xA;Dim countSentItems, countSentItemsInLoop, countWhileRetry As Int32&#xA;&#xA;Try &#xA;&#x9;application = New Microsoft.Office.Interop.Outlook.Application&#xA;&#x9;ns = application.GetNamespace(&quot;MAPI&quot;)&#xA;&#x9;sentItemsFolder = CType(ns.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderSentMail), Microsoft.Office.Interop.Outlook.MAPIFolder)&#xA;&#x9;countSentItems = 0&#xA;&#x9;For Each item As Object In sentItemsFolder.Items&#xA;&#x9;    If (TypeOf item Is Microsoft.Office.Interop.Outlook.MailItem) Then&#xA;&#x9;&#x9;&#x9;countSentItems = countSentItems + 1&#xA;&#x9;&#x9;End If&#xA;&#x9;Next item&#xA;&#x9;&#xA;&#x9;mailItem = CType(application.CreateItem(Microsoft.Office.Interop.Outlook.OlItemType.olMailItem), Microsoft.Office.Interop.Outlook.MailItem)&#xA;&#x9;mailItem.Subject = mailSubject&#xA;&#x9;mailItem.To = mailTo&#xA;&#x9;Try &#xA;&#x9;&#x9;For Each filePath As String In attachments&#xA;&#x9;&#x9;&#x9;mailItem.Attachments.Add(filePath)&#xA;&#x9;&#x9;Next filePath&#xA;&#x9;Catch &#xA;&#x9;End Try&#xA;&#x9;mailItem.Send()&#xA;&#x9;countWhileRetry = 0&#xA;&#x9;While countWhileRetry &lt; 300&#xA;&#x9;&#x9;countSentItemsInLoop = 0&#xA;&#x9;&#x9;&#x9;For Each item As Object In sentItemsFolder.Items&#xA;&#x9;&#x9;&#x9;    If (TypeOf item Is Microsoft.Office.Interop.Outlook.MailItem) Then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;countSentItemsInLoop = countSentItemsInLoop + 1&#xA;&#x9;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;&#x9;Next item&#xA;&#x9;&#x9;&#x9;If(countSentItems = countSentItemsInLoop - 1) Then&#xA;&#x9;&#x9;&#x9;&#x9;isSendMailSuccessful = True&#xA;&#x9;&#x9;&#x9;&#x9;Exit While&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;System.Threading.Thread.Sleep(100)&#xA;&#x9;End While&#xA;Catch &#xA; isSendMailSuccessful = False&#xA; If application IsNot Nothing Then&#xA;  application.Quit&#xA;  application = Nothing&#xA; End If&#xA;  ns = Nothing&#xA;  folders = Nothing&#xA; sentItemsFolder = Nothing&#xA;  mailItem = Nothing&#xA; Throw&#xA;Finally&#xA; If application IsNot Nothing Then&#xA;  application.Quit&#xA;  application = Nothing&#xA; End If&#xA;  ns = Nothing&#xA;  folders = Nothing&#xA; sentItemsFolder = Nothing&#xA;  mailItem = Nothing&#xA;End Try" DisplayName="Invoke ReadEmailsAndSaveAttachment code" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+          <ui:InvokeCode.Arguments>
+            <InArgument x:TypeArguments="scg:List(x:String)" x:Key="attachments">[mailAttachments]</InArgument>
+            <InOutArgument x:TypeArguments="x:Boolean" x:Key="isSendMailSuccessful">[isSendSuccessfully]</InOutArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="mailTo">[mailTo]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="mailSubject">[mailSubject]</InArgument>
+          </ui:InvokeCode.Arguments>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:InvokeCode>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,224.666666666667" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Sequence sap:VirtualizedContainerService.HintSize="304,154" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[isSendSuccessfully]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+  </Sequence>
+</Activity>
