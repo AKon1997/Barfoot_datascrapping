@@ -10,3 +10,6 @@ Deployment checklist:
 - Outlook
 - Google Chrome
 - UiPath Chrome extension
+
+
+For sending email please enter in config.xlsx value for 'emailsList' on 'settings' sheet. 
