@@ -5,13 +5,16 @@
   "dependencies": {
     "Microsoft.Activities": "[1.0.1]",
     "Microsoft.Activities.Extensions": "[2.0.6.9]",
+    "Microsoft.Office.Interop.Excel": "[15.0.4795.1000]",
     "Microsoft.Office.Interop.Outlook": "[15.0.4797.1003]",
     "UiPath.Excel.Activities": "[2.8.6]",
     "UiPath.Mail.Activities": "[1.8.6]",
     "UiPath.System.Activities": "[20.4.0]",
-    "UiPath.UIAutomation.Activities": "[20.4.2]"
+    "UiPath.UIAutomation.Activities": "[20.4.2]",
+    "UiPath.WebAPI.Activities": "[1.6.0]"
   },
   "webServices": [],
+  "entitiesStores": [],
   "schemaVersion": "4.0",
   "studioVersion": "20.4.3.0",
   "projectVersion": "1.0.0",
@@ -24,7 +27,9 @@
       "Private:*",
       "*password*"
     ],
-    "executionType": "Workflow"
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false
   },
   "designOptions": {
     "projectProfile": "Developement",
@@ -33,7 +38,22 @@
       "includeOriginalXaml": false,
       "privateWorkflows": []
     },
-    "fileInfoCollection": []
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
   },
-  "expressionLanguage": "VisualBasic"
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "f32cd976-309b-48a8-8df0-a9529a1a2bf5",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {}
 }

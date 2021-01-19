@@ -1,15 +1,16 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="CreateReport" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="CreateReport" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="Config" Type="InArgument(scg:Dictionary(x:String, scg:Dictionary(x:String, x:String)))" />
     <x:Property Name="inputDT" Type="InArgument(sd:DataTable)" />
     <x:Property Name="FileName" Type="InArgument(x:String)" />
     <x:Property Name="FilePath" Type="InArgument(x:String)" />
     <x:Property Name="isReportCreatedSuccessfully" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="FolderWithPictures" Type="InArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>880,852.666666666667</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1208,1716.8</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="32">
+    <scg:List x:TypeArguments="x:String" Capacity="46">
       <x:String>System</x:String>
       <x:String>System.Collections</x:String>
       <x:String>System.Collections.Generic</x:String>
@@ -29,10 +30,15 @@
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>UiPath.Excel</x:String>
       <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="24">
       <AssemblyReference>mscorlib</AssemblyReference>
       <AssemblyReference>System</AssemblyReference>
       <AssemblyReference>System.Activities</AssemblyReference>
@@ -55,56 +61,133 @@
       <AssemblyReference>UiPath.CV</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="476,623.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap:VirtualizedContainerService.HintSize="553.6,1612" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch Report Creating" sap:VirtualizedContainerService.HintSize="434,531.333333333333" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch Report Creating" sap:VirtualizedContainerService.HintSize="512,1519.2" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <Sequence sap:VirtualizedContainerService.HintSize="476,658.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence sap:VirtualizedContainerService.HintSize="475.2,1288" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="s:String[]" Name="files" />
+            <Variable x:TypeArguments="x:Int32" Name="index" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[string.Format(Config(&quot;logs&quot;)(&quot;startCreatingReportLog&quot;), FileName)]" />
-          <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,195.333333333333" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" Visible="False" WorkbookPath="[System.IO.Path.Combine(FilePath,FileName)]">
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="433.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[string.Format(Config(&quot;logs&quot;)(&quot;startCreatingReportLog&quot;), FileName)]" />
+          <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="433.6,125.6" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" Visible="False" WorkbookPath="[Path.Combine(FilePath,FileName)]">
             <ui:ExcelApplicationScope.Body>
               <ActivityAction x:TypeArguments="ui:WorkbookApplication">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
                 </ActivityAction.Argument>
-                <ui:ExcelWriteRange AddHeaders="True" DataTable="[inputDT]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,86.6666666666667" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_1" SheetName="Sheet1" StartingCell="A1" />
               </ActivityAction>
             </ui:ExcelApplicationScope.Body>
+          </ui:ExcelApplicationScope>
+          <Assign DisplayName="Get pictures" sap:VirtualizedContainerService.HintSize="433.6,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="s:String[]">[files]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(FolderWithPictures)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:ForEachRow CurrentIndex="[index]" DataTable="[inputDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="433.6,499.2" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="375.2,350.4" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim excel As Microsoft.Office.Interop.Excel.Application&#xD;&#xA;Dim workbook As Microsoft.Office.Interop.Excel.Workbook&#xD;&#xA;Dim sheet As Microsoft.Office.Interop.Excel.Worksheet&#xD;&#xA;Dim cell As Microsoft.Office.Interop.Excel.Range&#xD;&#xA;Dim processes As System.Diagnostics.Process()&#xD;&#xA;Try&#xD;&#xA;&#x9;excel = New Microsoft.Office.Interop.Excel.Application&#xD;&#xA;&#x9;workbook = excel.Workbooks.Open(File)&#xD;&#xA;&#x9;sheet =CType(workbook.Worksheets.Add(), Microsoft.Office.Interop.Excel.Worksheet)&#xD;&#xA;&#x9;workbook.Save()&#xD;&#xA;&#x9;sheet.Name = Name&#xD;&#xA;&#x9;sheet.Cells(1,1) = Adress&#xD;&#xA;&#x9;sheet.Cells(2,1)= Price&#xD;&#xA;&#x9;sheet.Cells(3,1) = ExtraData&#xD;&#xA;&#x9;cell = CType(sheet.Cells(4,1),Microsoft.Office.Interop.Excel.Range)&#xD;&#xA;&#x9;sheet.Shapes.AddPicture(PicturePath, Microsoft.Office.Core.MsoTriState.msoFalse ,Microsoft.Office.Core.MsoTriState.msoCTrue ,CSng(cell.Left), CSng(cell.Top) ,200,200)&#xD;&#xA;&#x9;workbook.Save()&#xD;&#xA;&#x9;workbook.Close()&#xD;&#xA;&#x9;workbook = Nothing&#xD;&#xA;&#x9;sheet = Nothing&#xD;&#xA;&#x9;excel.Quit()&#xD;&#xA;&#x9;excel = Nothing&#xD;&#xA;&#x9;IsCreatedSuccessfully = True&#xD;&#xA;Catch&#xD;&#xA;&#x9;IsCreatedSuccessfully = False&#xD;&#xA;Finally&#xD;&#xA;&#x9;If (workbook IsNot Nothing) Then&#xD;&#xA;&#x9;&#x9;workbook.Close(True)&#xD;&#xA;&#x9;&#x9;workbook = Nothing&#xD;&#xA;&#x9;End If  &#xD;&#xA;&#x9;If (excel IsNot Nothing) Then&#xD;&#xA;&#x9;&#x9;excel.Quit()&#xD;&#xA;&#x9;&#x9;excel = Nothing&#xD;&#xA;&#x9;End If&#xD;&#xA;  ' kill Excel processes&#xD;&#xA;&#x9;processes = System.Diagnostics.Process.GetProcessesByName(&quot;EXCEL&quot;)&#xD;&#xA;&#x9;For Each process As System.Diagnostics.Process In processes &#xD;&#xA;&#x9;&#x9;If (process.MainWindowTitle = String.Empty) Then&#xD;&#xA;&#x9;&#x9;&#x9;Try&#xD;&#xA;&#x9;&#x9;&#x9;process.Kill&#xD;&#xA;&#x9;&#x9;&#x9;Catch&#xD;&#xA;&#x9;&#x9;&#x9;End Try&#xD;&#xA;&#x9;&#x9;End If&#xD;&#xA;&#x9;Next &#xD;&#xA;End Try&#xD;&#xA;" DisplayName="Add Sheet" sap:VirtualizedContainerService.HintSize="333.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+                    <ui:InvokeCode.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="File">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Path.Combine(FilePath,FileName)" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Price">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="row(1).ToString" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="ExtraData">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="row(2).ToString" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="PicturePath">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="files(index)" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Name">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;Result &quot; + (index+1).ToString" />
+                      </InArgument>
+                      <OutArgument x:TypeArguments="x:Boolean" x:Key="IsCreatedSuccessfully">
+                        <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="isReportCreatedSuccessfully" />
+                      </OutArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="Adress">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="row(0).ToString" />
+                      </InArgument>
+                    </ui:InvokeCode.Arguments>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:InvokeCode>
+                  <If Condition="[isReportCreatedSuccessfully]" DisplayName="Need to Continue" sap:VirtualizedContainerService.HintSize="333.6,52.8" sap2010:WorkflowViewState.IdRef="If_1">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If.Else>
+                      <ui:Break sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Break_1" />
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEachRow.Body>
+          </ui:ForEachRow>
+          <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim excel As Microsoft.Office.Interop.Excel.Application&#xD;&#xA;Dim workbook As Microsoft.Office.Interop.Excel.Workbook&#xD;&#xA;Dim sheet As Microsoft.Office.Interop.Excel.Worksheet&#xD;&#xA;Dim processes As System.Diagnostics.Process()&#xD;&#xA;Try&#xD;&#xA;&#x9;excel = New Microsoft.Office.Interop.Excel.Application&#xD;&#xA;&#x9;workbook = excel.Workbooks.Open(FilePath)&#xD;&#xA;&#x9;sheet =CType(workbook.Worksheets(DefaultSheet), Microsoft.Office.Interop.Excel.Worksheet)&#xD;&#xA;&#x9;sheet.Delete()&#xD;&#xA;&#x9;workbook.Save()&#xD;&#xA;&#x9;workbook.Close()&#xD;&#xA;&#x9;workbook = Nothing&#xD;&#xA;&#x9;excel.Quit()&#xD;&#xA;&#x9;excel = Nothing&#xD;&#xA;&#x9;sheet = Nothing&#xD;&#xA;&#x9;IsDeletedSuccessfull = True&#xD;&#xA;Catch&#xD;&#xA;&#x9;IsDeletedSuccessfull = False&#xD;&#xA;Finally&#xD;&#xA;&#x9;If (workbook IsNot Nothing) Then&#xD;&#xA;&#x9;&#x9;workbook.Close(True)&#xD;&#xA;&#x9;&#x9;workbook = Nothing&#xD;&#xA;&#x9;End If  &#xD;&#xA;&#x9;If (excel IsNot Nothing) Then&#xD;&#xA;&#x9;&#x9;excel.Quit()&#xD;&#xA;&#x9;&#x9;excel = Nothing&#xD;&#xA;&#x9;End If&#xD;&#xA;  ' kill Excel processes&#xD;&#xA;&#x9;processes = System.Diagnostics.Process.GetProcessesByName(&quot;EXCEL&quot;)&#xD;&#xA;&#x9;For Each process As System.Diagnostics.Process In processes &#xD;&#xA;&#x9;&#x9;If (process.MainWindowTitle = String.Empty) Then&#xD;&#xA;&#x9;&#x9;&#x9;Try&#xD;&#xA;&#x9;&#x9;&#x9;process.Kill&#xD;&#xA;&#x9;&#x9;&#x9;Catch&#xD;&#xA;&#x9;&#x9;&#x9;End Try&#xD;&#xA;&#x9;&#x9;End If&#xD;&#xA;&#x9;Next &#xD;&#xA;End Try" DisplayName="Invoke code Delete Default Sheet" sap:VirtualizedContainerService.HintSize="433.6,164.8" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+            <ui:InvokeCode.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="FilePath">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Path.Combine(FilePath,FileName)" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="DefaultSheet">
+                <Literal x:TypeArguments="x:String">Sheet1</Literal>
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="IsDeletedSuccessfull" />
+            </ui:InvokeCode.Arguments>
+          </ui:InvokeCode>
+          <If Condition="[isReportCreatedSuccessfully]" DisplayName="Need to Continue" sap:VirtualizedContainerService.HintSize="433.6,52.8" sap2010:WorkflowViewState.IdRef="If_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-          </ui:ExcelApplicationScope>
-          <Assign sap:VirtualizedContainerService.HintSize="434,62" sap2010:WorkflowViewState.IdRef="Assign_1">
-            <Assign.To>
-              <OutArgument x:TypeArguments="x:Boolean">[isReportCreatedSuccessfully]</OutArgument>
-            </Assign.To>
-            <Assign.Value>
-              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
-            </Assign.Value>
-          </Assign>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[string.Format(Config(&quot;logs&quot;)(&quot;finishCreatingReportLog&quot;), FileName)]" />
+            <If.Then>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[string.Format(Config(&quot;logs&quot;)(&quot;finishCreatingReportLog&quot;), FileName)]" />
+            </If.Then>
+          </If>
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,359.333333333333" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="478.4,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
@@ -112,13 +195,13 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence sap:VirtualizedContainerService.HintSize="376,288.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <Sequence sap:VirtualizedContainerService.HintSize="375.2,284" sap2010:WorkflowViewState.IdRef="Sequence_4">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_3">
                 <Assign.To>
                   <OutArgument x:TypeArguments="x:Boolean">[isReportCreatedSuccessfully]</OutArgument>
                 </Assign.To>
@@ -126,7 +209,7 @@
                   <InArgument x:TypeArguments="x:Boolean">False</InArgument>
                 </Assign.Value>
               </Assign>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_3" Message="[string.Format(Config(&quot;error&quot;)(&quot;unexpectedCreateReportLog&quot;), FileName, exception.Message)]" />
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Message="[string.Format(Config(&quot;error&quot;)(&quot;unexpectedCreateReportLog&quot;), FileName, exception.Message)]" />
             </Sequence>
           </ActivityAction>
         </Catch>

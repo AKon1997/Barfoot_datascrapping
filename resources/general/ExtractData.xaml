@@ -3,11 +3,12 @@
     <x:Property Name="Browser" Type="InArgument(ui:Browser)" />
     <x:Property Name="Config" Type="InArgument(scg:Dictionary(x:String, scg:Dictionary(x:String, x:String)))" />
     <x:Property Name="DT" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="FolderForPictures" Type="InArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>880,852.666666666667</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1208,1280.8</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="32">
+    <scg:List x:TypeArguments="x:String" Capacity="50">
       <x:String>System</x:String>
       <x:String>System.Collections</x:String>
       <x:String>System.Collections.Generic</x:String>
@@ -26,10 +27,22 @@
       <x:String>UiPath.Core</x:String>
       <x:String>UiPath.Core.Activities</x:String>
       <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>Microsoft.Activities</x:String>
+      <x:String>Microsoft.Activities.Messaging</x:String>
+      <x:String>UiPath.Web</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="48">
       <AssemblyReference>mscorlib</AssemblyReference>
       <AssemblyReference>System</AssemblyReference>
       <AssemblyReference>System.Activities</AssemblyReference>
@@ -50,41 +63,129 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>Microsoft.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Web</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Collect Data" sap:VirtualizedContainerService.HintSize="476,623.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_11">
+  <Sequence DisplayName="Collect Data" sap:VirtualizedContainerService.HintSize="704,1176" sap2010:WorkflowViewState.IdRef="Sequence_11">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,531.333333333333" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="662.4,1083.2" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[Browser]" BrowserType="Chrome" DisplayName="Attach Browser" sap:VirtualizedContainerService.HintSize="434,214" sap2010:WorkflowViewState.IdRef="BrowserScope_1">
+        <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[Browser]" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe New'" sap:VirtualizedContainerService.HintSize="625.6,852" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="9822f305a975a6d8a8e5f0858ef328fb">
           <ui:BrowserScope.Body>
             <ActivityAction x:TypeArguments="x:Object">
               <ActivityAction.Argument>
                 <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
               </ActivityAction.Argument>
-              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" ContinueOnError="True" DataTable="[DT]" DisplayName="Extract Structured Data " ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='Adress' attr='text'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;webctrl tag='div' class='address' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Price' attr='text'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;webctrl tag='div' class='method-of-sale' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Extra' attr='text'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;webctrl tag='div' class='details' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="100" NextLinkSelector="&lt;webctrl aaname='Next &amp;gt;' tag='DIV' /&gt;" SimulateClick="True">
-                <ui:ExtractData.Target>
-                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6f67c160-0650-4fb4-8ede-f7474d61153e" InformativeScreenshot="4cc0a5fed677850d4b0c7c3c269cf223" Selector="&lt;webctrl tag='BODY' /&gt;" WaitForReady="COMPLETE">
-                    <ui:Target.TimeoutMS>
-                      <InArgument x:TypeArguments="x:Int32" />
-                    </ui:Target.TimeoutMS>
-                  </ui:Target>
-                </ui:ExtractData.Target>
-              </ui:ExtractData>
+              <Sequence sap:VirtualizedContainerService.HintSize="592,704.8" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="res" />
+                  <Variable x:TypeArguments="x:Int32" Name="index" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ExtractData DelayBetweenPagesMS="{x:Null}" ContinueOnError="True" DataTable="[DT]" DisplayName="Extract Structured Data " ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='Adress' attr='text'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;webctrl tag='div' class='address' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Price' attr='text'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;webctrl tag='div' class='method-of-sale' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Extra' attr='text'&gt;&lt;webctrl tag='div' class='search-result-container ng-scope' idx='1'/&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' idx='2'/&gt;&lt;webctrl tag='div' class='search-result' idx='1'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-4 col-sm-6 col-xs-12 div-cell'/&gt;&lt;webctrl tag='div' class='property-details ' idx='1'/&gt;&lt;webctrl tag='a' class='property-link' idx='1'/&gt;&lt;webctrl tag='div' class='details' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="550.4,52.8" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="100" NextLinkSelector="&lt;webctrl aaname='Next &amp;gt;' tag='DIV' /&gt;" SimulateClick="True">
+                  <ui:ExtractData.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6f67c160-0650-4fb4-8ede-f7474d61153e" InformativeScreenshot="4cc0a5fed677850d4b0c7c3c269cf223" Selector="&lt;webctrl tag='BODY' /&gt;" WaitForReady="COMPLETE">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                    </ui:Target>
+                  </ui:ExtractData.Target>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:ExtractData>
+                <ui:InjectJsScript InputParameter="{x:Null}" DisplayName="Inject Js Script Collect Links" sap:VirtualizedContainerService.HintSize="550.4,135.2" sap2010:WorkflowViewState.IdRef="InjectJsScript_1" ScriptCode="function(elem){&#xA;&#x9;let rows = elem.getElementsByClassName('image-container');&#xA;&#x9;let links = []&#xA;&#x9;for(const row of rows){&#xA;&#x9;&#x9;let image = row.getElementsByTagName('img')[0]&#xA;&#x9;&#x9;links.push(image.src)&#xA;&#x9;}&#xA;&#x9;return links.join(',')&#xA;}">
+                  <ui:InjectJsScript.ScriptOutput>
+                    <OutArgument x:TypeArguments="x:String">[res]</OutArgument>
+                  </ui:InjectJsScript.ScriptOutput>
+                  <ui:InjectJsScript.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="67053cd3-ffdb-409c-acfc-318c0fb16cd6" InformativeScreenshot="1e5b38c42a4c4eba80f7af55569a6bc6" Selector="&lt;webctrl tag='DIV' class='search-result' /&gt;">
+                      <ui:Target.TimeoutMS>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:Target.TimeoutMS>
+                      <ui:Target.WaitForReady>
+                        <InArgument x:TypeArguments="ui:WaitForReady" />
+                      </ui:Target.WaitForReady>
+                    </ui:Target>
+                  </ui:InjectJsScript.Target>
+                </ui:InjectJsScript>
+                <If Condition="[Split(res, &quot;,&quot;).Length = DT.Rows.Count]" DisplayName="Rows and Pictures equals" sap:VirtualizedContainerService.HintSize="550.4,344" sap2010:WorkflowViewState.IdRef="If_1">
+                  <If.Then>
+                    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[index]" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="306.4,194.4" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[Split(res, &quot;,&quot;)]">
+                      <ui:ForEach.Body>
+                        <ActivityAction x:TypeArguments="x:String">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="x:String" Name="item" />
+                          </ActivityAction.Argument>
+                          <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResponseHeaders="{x:Null}" Result="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="HTTP Request" EndPoint="[item]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" ResourcePath="[Path.Combine(FolderForPictures, index.ToString + &quot;.jpg&quot;)]" TimeoutMS="6000">
+                            <ui:HttpClient.Attachments>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Attachments>
+                            <ui:HttpClient.Cookies>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Cookies>
+                            <ui:HttpClient.Headers>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Headers>
+                            <ui:HttpClient.Parameters>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.Parameters>
+                            <ui:HttpClient.UrlSegments>
+                              <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                            </ui:HttpClient.UrlSegments>
+                          </ui:HttpClient>
+                        </ActivityAction>
+                      </ui:ForEach.Body>
+                    </ui:ForEach>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence DisplayName="Failed Path" sap:VirtualizedContainerService.HintSize="200,68.8" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Warn" Message="[Config(&quot;logs&quot;)(&quot;pictureCountNotMatch&quot;)]" />
+                      <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="sd:DataTable">[DT]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="sd:DataTable">[new DataTable]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </If.Else>
+                </If>
+              </Sequence>
             </ActivityAction>
           </ui:BrowserScope.Body>
         </ui:BrowserScope>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,359.333333333333" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="628.8,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
@@ -92,14 +193,14 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence sap:VirtualizedContainerService.HintSize="376,288.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_12">
+            <Sequence sap:VirtualizedContainerService.HintSize="375.2,285.6" sap2010:WorkflowViewState.IdRef="Sequence_12">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[string.Format(Config(&quot;error&quot;)(&quot;unexpectedExtractDataLog&quot;), exception.Message)]" />
-              <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[string.Format(Config(&quot;error&quot;)(&quot;unexpectedExtractDataLog&quot;), exception.Message)]" />
+              <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_1">
                 <Assign.To>
                   <OutArgument x:TypeArguments="sd:DataTable">[DT]</OutArgument>
                 </Assign.To>
